@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Book of Us</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Bilbo&family=Bilbo+Swash+Caps&family=Cinzel:wght@400;700&family=Pinyon+Script&family=Parisienne&family=Raleway:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Texture Overlay -->
+    <div class="texture-overlay"></div>
+    <!-- Golden Hour Overlay -->
+    <div class="golden-hour"></div>
+
+    <div id="rose-tracker">
+        <!-- Enlarged Rose with Gradients -->
+        <svg class="rose-svg" viewBox="0 0 100 120" width="120" height="200">
+            <defs>
+                <linearGradient id="stemGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#1b5e20;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#4caf50;stop-opacity:1" />
+                </linearGradient>
+                <radialGradient id="petalGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <stop offset="0%" style="stop-color:#d50000;stop-opacity:1" /> <!-- Bright Deep Red -->
+                    <stop offset="100%" style="stop-color:#880e4f;stop-opacity:1" /> <!-- Dark Burgundy -->
+                </radialGradient>
+                <radialGradient id="budGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <stop offset="0%" style="stop-color:#e53935;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#b71c1c;stop-opacity:1" />
+                </radialGradient>
+                <linearGradient id="leafGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#43a047;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#1b5e20;stop-opacity:1" />
+                </linearGradient>
+            </defs>
+
+            <!-- Stem -->
+            <path class="rose-stem" d="M50,110 C50,90 45,70 50,45" fill="none" stroke="url(#stemGradient)"
+                stroke-width="4" stroke-linecap="round" />
+
+            <!-- Leaves -->
+            <path class="rose-leaf l1" d="M50,80 Q20,70 35,55 Q50,65 50,80" fill="url(#leafGradient)" />
+            <path class="rose-leaf l2" d="M50,90 Q80,80 65,65 Q50,75 50,90" fill="url(#leafGradient)" />
+
+            <!-- Bud (Initial State) -->
+            <ellipse class="rose-bud" cx="50" cy="40" rx="10" ry="12" fill="url(#budGradient)" />
+
+            <!-- Petals (Complex Bloom) -->
+            <g class="rose-petals">
+                <!-- Back Petals -->
+                <path d="M50,45 Q20,20 50,5 Q80,20 50,45" fill="url(#petalGradient)" />
+                <path d="M50,45 Q10,35 30,10" fill="url(#petalGradient)" opacity="0.9" />
+                <path d="M50,45 Q90,35 70,10" fill="url(#petalGradient)" opacity="0.9" />
+                <!-- Front Inner Petals -->
+                <path d="M50,45 Q35,30 50,20 Q65,30 50,45" fill="#ff1744" opacity="0.8" />
+            </g>
+        </svg>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="music/The-Metro-Proposal-MassTamilan.dev.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- SFX -->
+    <audio id="sfx-flip" preload="auto">
+        <source src="flip.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sfx-paper" preload="auto">
+        <source src="paper.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control hidden" id="musicControl">🎵</div>
+
+    <!-- Custom Cursor Container -->
+    <div id="cursor-container"></div>
+
+    <!-- NEW DESIGN FEATURES -->
+    <!-- Ink Blot Transition Overlay -->
+    <div class="ink-blot-overlay" id="inkBlotOverlay"></div>
+
+    <!-- Firefly Container -->
+    <div id="firefly-container"></div>
+
+    <!-- Page Flipper Navigation Zones -->
+    <div class="nav-zone nav-zone-left" id="navZoneLeft"></div>
+    <div class="nav-zone nav-zone-right" id="navZoneRight"></div>
+
+    <!-- Keyboard Navigation Hint -->
+    <div class="keyboard-hint" id="keyboardHint">Use arrow keys or click to navigate ← →</div>
+
+    <!-- LOCK SCREEN -->
+    <section id="lock-screen" class="page-section active">
+        <div class="lock-content">
+            <h1>One Question...</h1>
+            <p>What is my favorite color?</p>
+            <input type="text" id="unlockInput" placeholder="Answer..." autocomplete="off">
+            <button id="unlockBtn">Unlock</button>
+            <p class="hint">(Hint: It involves darkness...)</p>
+        </div>
+    </section>
+
+    <section id="page-cover" class="page-section premium-bg">
+        <div class="glass-card">
+            <div class="cover-label" style="color: rgba(255,255,255,0.7); margin-bottom: 2rem;">A DIGITAL LOVE LETTER
+            </div>
+            <h1 class="book-title text-gold" style="font-size: 5rem; line-height: 1.1;">Our Story</h1>
+            <p class="book-subtitle" style="color: #ddd; font-style: italic; letter-spacing: 1px; margin-top: 1rem;">
+                "This is not just a website.<br>It’s something I made… for you."
+            </p>
+
+            <!-- Floating Heart -->
+            <div class="floating-heart">❤</div>
+
+            <!-- Cover Photo -->
+            <div class="cover-photo-container">
+                <img src="photos/kb.jpeg" alt="In Our Photo" class="cover-photo">
+            </div>
+
+            <button class="premium-btn nav-link" style="margin-top: 30px;" data-target="page-chap1">Start
+                Reading</button>
+        </div>
+    </section>
+
+    <!-- CHAPTER 1 -->
+    <section id="page-chap1" class="page-section page-chap1">
+        <div class="chapter-container">
+            <div class="chapter-header">
+                <h2>Chapter 1</h2>
+                <h3>How You Changed My Life</h3>
+            </div>
+
+            <div class="chapter-content">
+                <!-- Timer inside container -->
+                <div class="time-together">
+                    <p>We've been in love for:</p>
+                    <div id="timer">Loading...</div>
+                </div>
+
+                <!-- Static text for Ch1 with line-by-line fade -->
+                <div class="static-text-container">
+                    <p class="fade-line delay-1">You didn’t change my world</p>
+                    <p class="fade-line delay-2">You became it.</p>
+
+
+                    <div class="chapter-divider fade-line delay-3">— ♥ —</div>
+
+                    <p class="fade-line delay-4">In your smile, I found peace.</p>
+                    <p class="fade-line delay-5">In your arms, I found forever.</p>
+                    <p class="fade-line delay-6">And in loving you, I found myself.</p>
+                </div>
+            </div>
+
+            <!-- Handwritten Annotations -->
+            <div class="annotation annotation-1" style="--rotation: 5deg;">Remember this? ♡</div>
+            <div class="annotation annotation-3" style="--rotation: 3deg;">My favorite moment</div>
+
+            <!-- Page Curl -->
+            <div class="page-curl" data-target="page-chap2"></div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 2 -->
+    <section id="page-chap2" class="page-section page-chap2">
+        <div class="chapter-container">
+            <div class="chapter-header">
+                <h2>Chapter 2</h2>
+                <h3>Our Moments</h3>
+            </div>
+            <div class="scrapbook-layout">
+                <div class="polaroid p1">
+                    <img src="photos/WhatsApp Image 2026-02-04 at 4.11.04 PM.jpeg" alt="Memory 1">
+                    <p>The beginning of <span class="highlight-word">us</span></p>
+                    <div class="micro-heart h1">❤</div>
+                </div>
+                <div class="polaroid p3">
+                    <img src="photos/WhatsApp Image 2026-02-04 at 3.56.12 PM (1).jpeg" alt="Memory">
+                    <p>It's all about <span class="highlight-word">you</span></p>
+                    <div class="micro-heart h3">❤</div>
+                </div>
+                <div class="polaroid p2">
+                    <img src="photos/WhatsApp Image 2026-02-04 at 12.00.09 AM.jpeg" alt="Memory 2">
+                    <p>I love your <span class="highlight-word">smile</span></p>
+                    <div class="micro-heart h2">❤</div>
+                </div>
+            </div>
+
+            <!-- Annotations -->
+            <div class="annotation annotation-2" style="--rotation: -8deg;">So many memories ✨</div>
+
+            <!-- Page Curl -->
+            <div class="page-curl" data-target="page-chap4"></div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 3 (REMOVED) -->
+    <!--
+    <section id="page-chap3" class="page-section page-chap3">
+       ... REMOVED ...
+    </section>
+    -->
+
+    <!-- CHAPTER 4 (Visually Chapter 3) -->
+    <section id="page-chap4" class="page-section page-chap4">
+        <div class="chapter-container centered-dark">
+            <!-- New Chapter 3 Layout -->
+            <div class="fade-sequence centered-text-column">
+
+                <!-- Group 1 -->
+                <div class="text-group">
+                    <h2 class="fade-line choice-title">I CHOOSE YOU</h2>
+                    <p class="fade-line choice-body delay-1">on the days I’m strong,</p>
+                    <p class="fade-line choice-body delay-2 spaced-line">and the days I need saving.</p>
+                </div>
+
+                <!-- Gold Divider -->
+                <div class="gold-divider fade-line delay-3"></div>
+
+                <!-- Group 2 -->
+                <div class="text-group">
+                    <h2 class="fade-line choice-title delay-4">I choose you</h2>
+                    <p class="fade-line choice-body delay-5">not just today—</p>
+                    <p class="fade-line choice-body delay-6">but in every tomorrow.</p>
+                </div>
+
+                <!-- Micro Detail -->
+                <!--<div class="micro-detail fade-line delay-7" style="margin-top: 2rem;">— us</div>-->
+
+                <!-- Soft Glow Background -->
+                <div class="soft-glow-bg"></div>
+
+            </div>
+
+            <!-- Page Curl -->
+            <div class="page-curl" data-target="page-chap5"></div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 5 -->
+    <section id="page-chap5" class="page-section page-chap5">
+        <div class="chapter-container centered-red" id="letterContainer">
+            <!-- New Chapter 5 Content: "A Letter I Never Sent" -->
+            <div class="paper-overlay-strong"></div>
+            <div class="soft-bottom-glow"></div>
+
+            <!-- Wax Seal Overlay -->
+            <div class="wax-seal-overlay">
+                <div class="wax-seal" title="Break the seal"></div>
+            </div>
+
+            <div class="letter-content-static">
+                <!-- Renumbered to Chapter 4 -->
+                <h2 class="letter-title">A Letter I Never Sent</h2>
+                <div class="letter-body">
+                    <p>There are things I don't say often enough.</p>
+                    <p>How much you mean to me. How you handle life with such grace. How lucky I feel just to be near
+                        you.</p>
+                    <br>
+                    <p>I wanted to write this down so you'd never forget.</p>
+                    <p>You are my favorite person.</p>
+                </div>
+                <div class="letter-footer">
+                    - Gowtham Raj
+                </div>
+            </div>
+
+            <!-- Page Curl -->
+            <div class="page-curl" data-target="page-letters"></div>
+        </div>
+    </section>
+
+    <!-- CHAPTER 6: OPEN WHEN LETTERS -->
+    <section id="page-letters" class="page-section page-letters">
+        <div class="chapter-container">
+            <div class="chapter-header">
+                <h2>Chapter 5</h2>
+                <h3>Open When...</h3>
+            </div>
+            <div class="letter-grid">
+                <div class="envelope" onclick="openLetter('sad')">
+                    <div class="envelope-flap"></div>
+                    <p>You're Sad 😢</p>
+                </div>
+                <div class="envelope" onclick="openLetter('miss')">
+                    <div class="envelope-flap"></div>
+                    <p>You Miss Me 🥺</p>
+                </div>
+                <div class="envelope" onclick="openLetter('mad')">
+                    <div class="envelope-flap"></div>
+                    <p>You're Mad 😠</p>
+                </div>
+            </div>
+
+            <!-- Letter Modal -->
+            <div id="letter-overlay" class="letter-overlay hidden">
+                <div class="letter-paper">
+                    <span class="close-letter" onclick="closeLetter()">×</span>
+                    <p id="letter-content">...</p>
+                </div>
+                <button id="openFinalLetterBtn" class="nav-btn next-chapter nav-link" data-target="page-final">Open
+                    Final Letter →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL PAGE -->
+    <section id="page-final" class="page-section page-final">
+        <!-- Note: Background is handled by CSS #page-final rule to keep user image -->
+        <div class="glass-card centered-final"
+            style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);">
+            <!-- Initial Question State -->
+            <div id="proposalContent">
+                <h1 class="grand-title text-gold" style="font-size: 6rem; text-shadow: 0 5px 15px rgba(0,0,0,0.5);">Will
+                    you be my<br>Valentine?</h1>
+                <h2 class="name-display"
+                    style="font-family: 'Bilbo', cursive; font-size: 8rem; margin-top: 1rem; color: #D4AF37; background: transparent; text-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                    Rishika</h2>
+
+                <div class="choice-container"
+                    style="margin-top: 3rem; display: flex; gap: 2rem; justify-content: center; position: relative; min-height: 80px;">
+                    <button id="btnYes" class="premium-btn"
+                        style="border-color: #4CAF50; color: #e8f5e9; background: rgba(76, 175, 80, 0.1);">Yes, I will!
+                        ❤️</button>
+                    <button id="btnNo" class="premium-btn" style="border-color: #ff3333; color: #ffebee;">No</button>
+                </div>
+            </div>
+
+            <!-- Success Message (Hidden initially) -->
+            <div id="successMessage" class="hidden" style="text-align: center;">
+                <h1 class="text-gold" style="font-size: 4rem; margin-bottom: 1rem;">Happy Valentine's Day,<br>Rishika
+                </h1>
+                <p class="quote">I love you more than words can say.</p>
+                <div
+                    style="font-size: 6rem; margin-top: 2rem; animation: pulse 2s infinite; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;">
+                    💞</div>
+                <p class="signature"> Always yours, <span>Gowtham Raj ❤️</span></p>
+            </div>
+
+            <button id="readAgainBtn" class="premium-btn restart-btn nav-link pulse-btn" data-target="page-cover"
+                style="margin-top: 3rem;">One More Time ❤️</button>
+        </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

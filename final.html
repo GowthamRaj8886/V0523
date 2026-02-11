@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finale - Our Story</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Bilbo&family=Bilbo+Swash+Caps&family=Cinzel:wght@400;700&family=Pinyon+Script&family=Parisienne&family=Raleway:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="page-final">
+
+
+
+    <!-- Note: Background is handled by CSS #page-final rule to keep user image -->
+    <div class="glass-card centered-final"
+        style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);">
+        <!-- Initial Question State -->
+        <div id="proposalContent">
+            <h1 class="grand-title text-gold" style="font-size: 6rem; text-shadow: 0 5px 15px rgba(0,0,0,0.5);">Will you
+                be my<br>Valentine?</h1>
+            <h2 class="name-display"
+                style="font-family: 'Bilbo', cursive; font-size: 8rem; margin-top: 1rem; color: #D4AF37; background: transparent; text-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                Rishika</h2>
+
+            <div class="choice-container"
+                style="margin-top: 3rem; display: flex; gap: 2rem; justify-content: center; position: relative; min-height: 80px;">
+                <button id="btnYes" class="premium-btn"
+                    style="border-color: #4CAF50; color: #e8f5e9; background: rgba(76, 175, 80, 0.1);">Yes, I will!
+                    ❤️</button>
+                <button id="btnNo" class="premium-btn" style="border-color: #ff3333; color: #ffebee;">No</button>
+            </div>
+        </div>
+
+        <!-- Success Message (Hidden initially) -->
+        <div id="successMessage" class="hidden" style="text-align: center;">
+            <h1 class="text-gold" style="font-size: 4rem; margin-bottom: 1rem;">Happy Valentine's Day,<br>Rishika</h1>
+            <p class="quote">I love you more than words can say.</p>
+            <div
+                style="font-size: 6rem; margin-top: 2rem; animation: pulse 2s infinite; font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;">
+                💞</div>
+            <p class="signature">— Always yours, <span>Gowtham Raj ❤️</span></p>
+            <a href="index.html" class="premium-btn restart-btn pulse-btn" style="margin-top: 3rem;">One More Time
+                ❤️</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
